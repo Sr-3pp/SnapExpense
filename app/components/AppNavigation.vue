@@ -14,23 +14,23 @@ const openUploadModal = () => {
         class="flex items-center gap-3"
       >
         <span class="flex h-10 w-10 items-center justify-center rounded-xl bg-(--ui-primary) font-semibold text-(--ui-text-inverted)">
-          ET
+          SE
         </span>
 
         <span class="flex flex-col">
-          <span class="text-sm font-semibold text-(--ui-text-highlighted)">ExpenseTracker</span>
-          <span class="text-xs text-(--ui-text-muted)">Receipt extraction workspace</span>
+          <span class="text-sm font-semibold text-(--ui-text-highlighted)">SnapExpense</span>
+          <span class="text-xs text-(--ui-text-muted)">Espacio de trabajo para extraer tickets</span>
         </span>
       </NuxtLink>
 
       <div class="flex items-center gap-3">
-        <UColorModeSwitch label="Switch Color Mode" />
+        <UColorModeSwitch label="Cambiar modo de color" />
 
         <UButton
           @click="openUploadModal"
           color="primary"
           variant="ghost"
-          label="Upload Ticket"
+          label="Subir ticket"
         />
       </div>
     </div>

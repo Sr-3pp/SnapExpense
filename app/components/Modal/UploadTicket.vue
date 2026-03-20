@@ -5,8 +5,8 @@ const { isOpen, close } = useModal('uploadTicket');
 <template>
   <UModal
     v-model:open="isOpen"
-    title="Upload Ticket"
-    description="upload the ticket picture to get the details"
+    title="Subir ticket"
+    description="Sube la imagen del ticket para extraer sus datos"
     name="uploadTicket"
   >
     <template #body>

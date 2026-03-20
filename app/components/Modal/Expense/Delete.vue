@@ -45,8 +45,8 @@ const confirmDelete = async () => {
 <template>
   <UModal
     v-model:open="isOpen"
-    title="Delete Expense"
-    description="This will permanently remove the expense from MongoDB."
+    title="Eliminar gasto"
+    description="Esta accion eliminara el gasto de forma permanente en MongoDB."
     @update:open="!$event && emit('closed')"
   >
     <template #body>
@@ -59,11 +59,11 @@ const confirmDelete = async () => {
         />
 
         <p class="text-sm text-(--ui-text-muted)">
-          Delete
+          Eliminar
           <span class="font-medium text-(--ui-text-highlighted)">
-            {{ expense?.merchant || 'this expense' }}
+            {{ expense?.merchant || 'este gasto' }}
           </span>
-          from the registered expenses list.
+          de la lista de gastos registrados.
         </p>
       </div>
     </template>
@@ -73,13 +73,13 @@ const confirmDelete = async () => {
         <UButton
           color="neutral"
           variant="ghost"
-          label="Cancel"
+          label="Cancelar"
           @click="closeModal"
         />
 
         <UButton
           color="error"
-          label="Delete"
+          label="Eliminar"
           :loading="isDeletingExpense"
           @click="confirmDelete"
         />

@@ -23,7 +23,7 @@ const formatDateTime = (value: string) => {
 
 const formatAmount = (value: number | null, currency: string | null) => {
   if (value === null) {
-    return 'Not detected';
+    return 'No detectado';
   }
 
   if (!currency) {
@@ -55,11 +55,11 @@ const summaryItems = computed(() => {
 
   return [
     {
-      label: 'Purchase date',
-      value: props.expense.purchaseDate ?? 'Not detected'
+      label: 'Fecha de compra',
+      value: props.expense.purchaseDate ?? 'No detectado'
     },
     {
-      label: 'Payment',
+      label: 'Pago',
       value: props.expense.paymentMethod
     },
     {
@@ -67,7 +67,7 @@ const summaryItems = computed(() => {
       value: formatAmount(props.expense.subtotal, props.expense.currency)
     },
     {
-      label: 'Tax',
+      label: 'Impuesto',
       value: formatAmount(props.expense.tax, props.expense.currency)
     }
   ];
@@ -78,23 +78,23 @@ const metadataItems = computed(() => {
     return [];
   }
 
-  return [
-    {
-      label: 'Invoice number',
-      value: props.expense.invoiceNumber ?? 'Not detected'
-    },
-    {
-      label: 'Currency',
-      value: props.expense.currency ?? 'Not detected'
-    },
-    {
-      label: 'Created',
-      value: formatDateTime(props.expense.createdAt)
-    },
-    {
-      label: 'Updated',
-      value: formatDateTime(props.expense.updatedAt)
-    }
+    return [
+      {
+        label: 'Numero de factura',
+        value: props.expense.invoiceNumber ?? 'No detectado'
+      },
+      {
+        label: 'Moneda',
+        value: props.expense.currency ?? 'No detectado'
+      },
+      {
+        label: 'Creado',
+        value: formatDateTime(props.expense.createdAt)
+      },
+      {
+        label: 'Actualizado',
+        value: formatDateTime(props.expense.updatedAt)
+      }
   ];
 });
 </script>
@@ -103,8 +103,8 @@ const metadataItems = computed(() => {
   <UModal
     v-model:open="isOpen"
     :content="{ class: 'sm:max-w-3xl' }"
-    title="Receipt Detail"
-    description="Review the parsed fields, line items, and extraction notes for this expense."
+    title="Detalle del ticket"
+    description="Revisa los campos extraidos, los articulos y las notas asociadas a este gasto."
     @update:open="!$event && emit('closed')"
   >
     <template #body>
@@ -117,7 +117,7 @@ const metadataItems = computed(() => {
             <div class="space-y-3 rounded-2xl bg-default/90 p-4 backdrop-blur-sm">
               <div class="flex flex-wrap items-center gap-2">
                 <UBadge color="neutral" variant="subtle">
-                  Receipt
+                  Ticket
                 </UBadge>
                 <UBadge
                   v-if="expense.currency"
@@ -130,10 +130,10 @@ const metadataItems = computed(() => {
 
               <div>
                 <h2 class="text-2xl font-semibold text-(--ui-text-highlighted)">
-                  {{ expense.merchant || 'Unknown merchant' }}
+                  {{ expense.merchant || 'Comercio desconocido' }}
                 </h2>
                 <p class="mt-1 text-sm text-(--ui-text-muted)">
-                  {{ expense.purchaseDate || 'Purchase date not detected' }}
+                  {{ expense.purchaseDate || 'Fecha de compra no detectada' }}
                 </p>
               </div>
             </div>
@@ -168,10 +168,10 @@ const metadataItems = computed(() => {
           <div class="flex items-center justify-between gap-3">
             <div>
               <h3 class="text-base font-semibold text-(--ui-text-highlighted)">
-                Receipt metadata
+                Metadatos del ticket
               </h3>
               <p class="text-sm text-(--ui-text-muted)">
-                Parsed fields and persistence timestamps.
+                Campos extraidos y fechas de persistencia.
               </p>
             </div>
           </div>
@@ -196,14 +196,14 @@ const metadataItems = computed(() => {
           <div class="flex items-center justify-between gap-3">
             <div>
               <h3 class="text-base font-semibold text-(--ui-text-highlighted)">
-                Line items
+                Articulos
               </h3>
               <p class="text-sm text-(--ui-text-muted)">
-                Individual purchases extracted from the receipt.
+                Compras individuales extraidas del ticket.
               </p>
             </div>
             <UBadge color="neutral" variant="subtle">
-              {{ expense.items.length }} item{{ expense.items.length === 1 ? '' : 's' }}
+              {{ expense.items.length }} articulo{{ expense.items.length === 1 ? '' : 's' }}
             </UBadge>
           </div>
 
@@ -212,9 +212,9 @@ const metadataItems = computed(() => {
             class="mt-4 overflow-hidden rounded-xl border border-default"
           >
             <div class="grid grid-cols-[minmax(0,1.6fr)_repeat(3,minmax(0,1fr))] gap-3 bg-default px-4 py-3 text-xs font-medium uppercase tracking-[0.14em] text-(--ui-text-muted)">
-              <span>Item</span>
-              <span>Qty</span>
-              <span>Unit</span>
+              <span>Articulo</span>
+              <span>Cant.</span>
+              <span>Unitario</span>
               <span>Total</span>
             </div>
 
@@ -242,7 +242,7 @@ const metadataItems = computed(() => {
             v-else
             class="mt-4 rounded-xl border border-dashed border-default bg-default px-4 py-6 text-sm text-(--ui-text-muted)"
           >
-            No line items were extracted for this receipt.
+            No se extrajeron articulos para este ticket.
           </div>
         </section>
 
@@ -250,10 +250,10 @@ const metadataItems = computed(() => {
           <div class="flex items-center justify-between gap-3">
             <div>
               <h3 class="text-base font-semibold text-(--ui-text-highlighted)">
-                Extraction notes
+                Notas de extraccion
               </h3>
               <p class="text-sm text-(--ui-text-muted)">
-                OCR uncertainty and model observations.
+                Incertidumbre del OCR y observaciones del modelo.
               </p>
             </div>
           </div>
@@ -275,7 +275,7 @@ const metadataItems = computed(() => {
             v-else
             class="mt-4 rounded-xl border border-dashed border-default bg-default px-4 py-6 text-sm text-(--ui-text-muted)"
           >
-            No extraction notes were recorded for this receipt.
+            No se registraron notas de extraccion para este ticket.
           </div>
         </section>
       </div>
@@ -286,7 +286,7 @@ const metadataItems = computed(() => {
         <UButton
           color="neutral"
           variant="soft"
-          label="Close"
+          label="Cerrar"
           @click="closeModal"
         />
       </div>

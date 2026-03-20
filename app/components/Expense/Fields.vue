@@ -22,7 +22,7 @@ const updatePaymentMethod = (value: PaymentMethodOption | null | undefined) => {
 
 <template>
   <div class="grid gap-4 sm:grid-cols-2">
-    <UFormField name="merchant" label="Merchant">
+    <UFormField name="merchant" label="Comercio">
       <UInput
         :model-value="state.merchant ?? undefined"
         class="w-full"
@@ -30,7 +30,7 @@ const updatePaymentMethod = (value: PaymentMethodOption | null | undefined) => {
       />
     </UFormField>
 
-    <UFormField name="purchaseDate" label="Purchase Date">
+    <UFormField name="purchaseDate" label="Fecha de compra">
       <UInput
         :model-value="state.purchaseDate ?? undefined"
         type="date"
@@ -39,7 +39,7 @@ const updatePaymentMethod = (value: PaymentMethodOption | null | undefined) => {
       />
     </UFormField>
 
-    <UFormField name="currency" label="Currency">
+    <UFormField name="currency" label="Moneda">
       <UInput
         :model-value="state.currency ?? undefined"
         class="w-full"
@@ -47,18 +47,18 @@ const updatePaymentMethod = (value: PaymentMethodOption | null | undefined) => {
       />
     </UFormField>
 
-    <UFormField name="paymentMethod" label="Payment Method">
+    <UFormField name="paymentMethod" label="Metodo de pago">
       <USelect
         :items="[...paymentMethodOptions]"
         :model-value="state.paymentMethod ?? undefined"
-        placeholder="Select a payment method"
+        placeholder="Selecciona un metodo de pago"
         nullable
         class="w-full"
         @update:model-value="updatePaymentMethod($event)"
       />
     </UFormField>
 
-    <UFormField name="invoiceNumber" label="Invoice Number">
+    <UFormField name="invoiceNumber" label="Numero de factura">
       <UInput
         :model-value="state.invoiceNumber ?? undefined"
         class="w-full"
@@ -71,11 +71,11 @@ const updatePaymentMethod = (value: PaymentMethodOption | null | undefined) => {
         <UInputNumber v-model="state.subtotal" orientation="vertical" class="w-full" />
       </UFormField>
 
-      <UFormField name="tax" label="Tax">
+      <UFormField name="tax" label="Impuesto">
         <UInputNumber v-model="state.tax" orientation="vertical" class="w-full" />
       </UFormField>
 
-      <UFormField name="tip" label="Tip">
+      <UFormField name="tip" label="Propina">
         <UInputNumber v-model="state.tip" orientation="vertical" class="w-full" />
       </UFormField>
 

@@ -14,7 +14,7 @@ const props = withDefaults(defineProps<{
 }>(), {
   expense: null,
   loading: false,
-  submitLabel: 'Save Changes'
+  submitLabel: 'Guardar cambios'
 });
 
 const emit = defineEmits<{
@@ -83,7 +83,7 @@ const handleSubmit = (event: { data: TicketExtraction }) => {
         type="button"
         color="neutral"
         variant="ghost"
-        label="Cancel"
+        label="Cancelar"
         @click="emitCancel"
       />
 

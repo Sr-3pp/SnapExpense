@@ -16,10 +16,10 @@ const emit = defineEmits<{
     <div class="flex items-center justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-(--ui-text-highlighted)">
-          Line Items
+          Articulos
         </h3>
         <p class="text-sm text-(--ui-text-muted)">
-          Review each parsed item before saving.
+          Revisa cada articulo detectado antes de guardar.
         </p>
       </div>
 
@@ -28,7 +28,7 @@ const emit = defineEmits<{
         color="neutral"
         variant="soft"
         icon="i-lucide-plus"
-        label="Add Item"
+        label="Agregar articulo"
         @click="emit('add')"
       />
     </div>
@@ -44,7 +44,7 @@ const emit = defineEmits<{
       >
         <div class="mb-3 flex items-center justify-between gap-3">
           <p class="text-sm font-medium text-(--ui-text-highlighted)">
-            Item {{ index + 1 }}
+            Articulo {{ index + 1 }}
           </p>
 
           <UButton
@@ -58,19 +58,19 @@ const emit = defineEmits<{
         </div>
 
         <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <UFormField :name="`items.${index}.name`" label="Name">
+          <UFormField :name="`items.${index}.name`" label="Nombre">
             <UInput v-model="item.name" class="w-full" />
           </UFormField>
 
-          <UFormField :name="`items.${index}.quantity`" label="Quantity">
+          <UFormField :name="`items.${index}.quantity`" label="Cantidad">
             <UInputNumber v-model="item.quantity" orientation="vertical" class="w-full" />
           </UFormField>
 
-          <UFormField :name="`items.${index}.unitPrice`" label="Unit Price">
+          <UFormField :name="`items.${index}.unitPrice`" label="Precio unitario">
             <UInputNumber v-model="item.unitPrice" orientation="vertical" class="w-full" />
           </UFormField>
 
-          <UFormField :name="`items.${index}.totalPrice`" label="Total Price">
+          <UFormField :name="`items.${index}.totalPrice`" label="Precio total">
             <UInputNumber v-model="item.totalPrice" orientation="vertical" class="w-full" />
           </UFormField>
         </div>
@@ -81,7 +81,7 @@ const emit = defineEmits<{
       v-else
       color="neutral"
       variant="soft"
-      title="No line items on this ticket yet."
+      title="Todavia no hay articulos en este ticket."
     />
   </div>
 </template>

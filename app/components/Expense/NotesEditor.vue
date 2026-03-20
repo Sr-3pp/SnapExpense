@@ -14,10 +14,10 @@ const emit = defineEmits<{
     <div class="flex items-center justify-between gap-3">
       <div>
         <h3 class="text-sm font-semibold text-(--ui-text-highlighted)">
-          Notes
+          Notas
         </h3>
         <p class="text-sm text-(--ui-text-muted)">
-          Add any extra details extracted from the ticket.
+          Agrega cualquier detalle extra extraido del ticket.
         </p>
       </div>
 
@@ -26,7 +26,7 @@ const emit = defineEmits<{
         color="neutral"
         variant="soft"
         icon="i-lucide-plus"
-        label="Add Note"
+        label="Agregar nota"
         @click="emit('add')"
       />
     </div>
@@ -60,7 +60,7 @@ const emit = defineEmits<{
       v-else
       color="neutral"
       variant="soft"
-      title="No notes attached to this ticket."
+      title="No hay notas asociadas a este ticket."
     />
   </div>
 </template>

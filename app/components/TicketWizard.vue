@@ -51,15 +51,15 @@ const handleSave = async (expense: TicketExtraction) => {
   <div class="mx-auto flex max-w-3xl flex-col gap-6 p-6">
     <UFileUpload
       v-model="ticketPicture"
-      label="Upload your ticket picture"
-      placeholder="Click or drag and drop your ticket picture here"
+      label="Sube la foto de tu ticket"
+      placeholder="Haz clic o arrastra la imagen del ticket aquí"
       accept="image/*"
     />
 
     <UButton 
         v-if="!extractedTicket"
         class="mx-auto"
-        label="Extract JSON"
+        label="Extraer datos"
         :loading="isLoading"
         :disabled="!ticketPicture || isLoading"
         @click="submitTicket"
@@ -76,7 +76,7 @@ const handleSave = async (expense: TicketExtraction) => {
       <ExpenseForm
         :expense="extractedTicket"
         :loading="isLoading"
-        submit-label="Save"
+        submit-label="Guardar"
         @submit="handleSave"
         @cancel="extractedTicket = null"
       />

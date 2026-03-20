@@ -54,7 +54,7 @@ describe('ExpenseForm', () => {
     });
 
     const buttons = wrapper.findAll('button');
-    const cancelButton = buttons.find((button) => button.text() === 'Cancel');
+    const cancelButton = buttons.find((button) => button.text() === 'Cancelar');
     const submitShellButton = buttons.find((button) => button.text() === 'Submit Shell');
 
     await cancelButton!.trigger('click');

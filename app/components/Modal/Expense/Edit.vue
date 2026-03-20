@@ -53,8 +53,8 @@ const saveEditedExpense = async (payload: TicketExtraction) => {
 <template>
   <UModal
     v-model:open="isOpen"
-    title="Edit Expense"
-    description="Update the parsed expense payload and save it back to MongoDB."
+    title="Editar gasto"
+    description="Actualiza los datos extraidos y guardalos nuevamente en MongoDB."
     @update:open="!$event && emit('closed')"
   >
     <template #body>
@@ -69,7 +69,7 @@ const saveEditedExpense = async (payload: TicketExtraction) => {
         <ExpenseForm
           :expense="expense"
           :loading="isSavingExpense"
-          submit-label="Save Changes"
+          submit-label="Guardar cambios"
           @cancel="closeModal"
           @submit="saveEditedExpense"
         />

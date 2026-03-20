@@ -25,15 +25,15 @@ const emit = defineEmits<{
 const columns: TableColumn<ExpenseRecord>[] = [
   {
     accessorKey: 'merchant',
-    header: 'Merchant'
+    header: 'Comercio'
   },
   {
     accessorKey: 'purchaseDate',
-    header: 'Date'
+    header: 'Fecha'
   },
   {
     accessorKey: 'currency',
-    header: 'Currency'
+    header: 'Moneda'
   },
   {
     accessorKey: 'total',
@@ -41,15 +41,15 @@ const columns: TableColumn<ExpenseRecord>[] = [
   },
   {
     accessorKey: 'paymentMethod',
-    header: 'Payment'
+    header: 'Pago'
   },
   {
     accessorKey: 'createdAt',
-    header: 'Created'
+    header: 'Creado'
   },
   {
     id: 'actions',
-    header: 'Actions'
+    header: 'Acciones'
   }
 ];
 
@@ -78,12 +78,12 @@ const formatCreatedAt = (value: string) => {
 const getExpenseActions = (expense: ExpenseRecord) => ([
   [
     {
-      label: 'Edit',
+      label: 'Editar',
       icon: 'i-lucide-pencil-line',
       onSelect: () => openEdit(expense)
     },
     {
-      label: 'Delete',
+      label: 'Eliminar',
       icon: 'i-lucide-trash-2',
       color: 'error' as const,
       onSelect: () => openDelete(expense)
@@ -98,10 +98,10 @@ const getExpenseActions = (expense: ExpenseRecord) => ([
       <div class="flex items-center justify-between gap-4">
         <div>
           <h1 class="text-lg font-semibold text-(--ui-text-highlighted)">
-            Registered Expenses
+            Gastos registrados
           </h1>
           <p class="text-sm text-(--ui-text-muted)">
-            Parsed tickets stored in MongoDB.
+            Tickets procesados almacenados en MongoDB.
           </p>
         </div>
 
@@ -119,7 +119,7 @@ const getExpenseActions = (expense: ExpenseRecord) => ([
       :data="expenses"
       :columns="columns"
       :loading="loading"
-      empty="No expenses registered yet."
+      empty="Todavia no hay gastos registrados."
     >
       <template #total-cell="{ row }">
         {{ row.original.total ?? '-' }}
@@ -136,7 +136,7 @@ const getExpenseActions = (expense: ExpenseRecord) => ([
             color="neutral"
             variant="ghost"
             icon="i-lucide-eye"
-            aria-label="View receipt"
+            aria-label="Ver ticket"
             @click="openView(row.original)"
           />
 
@@ -146,7 +146,7 @@ const getExpenseActions = (expense: ExpenseRecord) => ([
               color="neutral"
               variant="ghost"
               icon="i-lucide-ellipsis"
-              aria-label="Expense actions"
+              aria-label="Acciones del gasto"
             />
           </UDropdownMenu>
         </div>
