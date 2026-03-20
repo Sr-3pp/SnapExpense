@@ -7,6 +7,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
+  closed: [];
   saved: [];
 }>();
 
@@ -26,6 +27,7 @@ watch(
 
 const closeModal = () => {
   close();
+  emit('closed');
 };
 
 const saveEditedExpense = async (payload: TicketExtraction) => {
@@ -53,6 +55,7 @@ const saveEditedExpense = async (payload: TicketExtraction) => {
     v-model:open="isOpen"
     title="Edit Expense"
     description="Update the parsed expense payload and save it back to MongoDB."
+    @update:open="!$event && emit('closed')"
   >
     <template #body>
       <div class="space-y-4">

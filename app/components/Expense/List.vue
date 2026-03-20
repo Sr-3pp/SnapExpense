@@ -17,6 +17,7 @@ defineProps({
 
 const emit = defineEmits<{
   refresh: [];
+  view: [expense: ExpenseRecord];
   edit: [expense: ExpenseRecord];
   delete: [expense: ExpenseRecord];
 }>();
@@ -56,6 +57,10 @@ const openEdit = (expense: ExpenseRecord) => {
   emit('edit', expense);
 };
 
+const openView = (expense: ExpenseRecord) => {
+  emit('view', expense);
+};
+
 const openDelete = (expense: ExpenseRecord) => {
   emit('delete', expense);
 };
@@ -69,6 +74,22 @@ const createdAtFormatter = new Intl.DateTimeFormat('en-US', {
 const formatCreatedAt = (value: string) => {
   return createdAtFormatter.format(new Date(value));
 };
+
+const getExpenseActions = (expense: ExpenseRecord) => ([
+  [
+    {
+      label: 'Edit',
+      icon: 'i-lucide-pencil-line',
+      onSelect: () => openEdit(expense)
+    },
+    {
+      label: 'Delete',
+      icon: 'i-lucide-trash-2',
+      color: 'error' as const,
+      onSelect: () => openDelete(expense)
+    }
+  ]
+]);
 </script>
 
 <template>
@@ -109,22 +130,25 @@ const formatCreatedAt = (value: string) => {
       </template>
 
       <template #actions-cell="{ row }">
-        <div class="flex items-center gap-2">
+        <div class="flex items-center gap-1">
           <UButton
             size="xs"
             color="neutral"
-            variant="soft"
-            label="Edit"
-            @click="openEdit(row.original)"
+            variant="ghost"
+            icon="i-lucide-eye"
+            aria-label="View receipt"
+            @click="openView(row.original)"
           />
 
-          <UButton
-            size="xs"
-            color="error"
-            variant="soft"
-            label="Delete"
-            @click="openDelete(row.original)"
-          />
+          <UDropdownMenu :items="getExpenseActions(row.original)">
+            <UButton
+              size="xs"
+              color="neutral"
+              variant="ghost"
+              icon="i-lucide-ellipsis"
+              aria-label="Expense actions"
+            />
+          </UDropdownMenu>
         </div>
       </template>
     </UTable>

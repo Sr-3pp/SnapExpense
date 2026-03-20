@@ -3,6 +3,7 @@ import type { ExpenseRecord } from '~~/shared/types/expense';
 
 const selectedExpense = ref<ExpenseRecord | null>(null);
 const { expenses, isLoadingExpenses, loadExpenses } = useExpenses();
+const { open: openViewModal } = useModal('viewExpense');
 const { open: openEditModal } = useModal('editExpense');
 const { open: openDeleteModal } = useModal('deleteExpense');
 
@@ -25,6 +26,11 @@ const handleEdit = (expense: ExpenseRecord) => {
   openEditModal();
 };
 
+const handleView = (expense: ExpenseRecord) => {
+  selectedExpense.value = expense;
+  openViewModal();
+};
+
 const handleDelete = (expense: ExpenseRecord) => {
   selectedExpense.value = expense;
   openDeleteModal();
@@ -37,17 +43,24 @@ const handleDelete = (expense: ExpenseRecord) => {
       :expenses="expenses"
       :loading="isLoadingExpenses"
       @refresh="handleRefresh"
+      @view="handleView"
       @edit="handleEdit"
       @delete="handleDelete"
     />
   </UMain>
 
+  <ModalExpenseDetail
+    :expense="selectedExpense"
+    @closed="clearSelectedExpense"
+  />
   <ModalExpenseEdit
     :expense="selectedExpense"
+    @closed="clearSelectedExpense"
     @saved="clearSelectedExpense"
   />
   <ModalExpenseDelete
     :expense="selectedExpense"
+    @closed="clearSelectedExpense"
     @deleted="clearSelectedExpense"
   />
 </template>

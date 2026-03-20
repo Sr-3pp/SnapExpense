@@ -7,11 +7,13 @@ import IndexPage from '../../app/pages/index.vue';
 const {
   loadExpensesMock,
   refreshMock,
+  openViewModalMock,
   openEditModalMock,
   openDeleteModalMock
 } = vi.hoisted(() => ({
   loadExpensesMock: vi.fn().mockResolvedValue(undefined),
   refreshMock: vi.fn().mockResolvedValue(undefined),
+  openViewModalMock: vi.fn(),
   openEditModalMock: vi.fn(),
   openDeleteModalMock: vi.fn()
 }));
@@ -42,7 +44,11 @@ mockNuxtImport('useExpenses', () => () => ({
 }));
 
 mockNuxtImport('useModal', () => (name: string) => ({
-  open: name === 'editExpense' ? openEditModalMock : openDeleteModalMock
+  open: name === 'viewExpense'
+    ? openViewModalMock
+    : name === 'editExpense'
+      ? openEditModalMock
+      : openDeleteModalMock
 }));
 
 mockNuxtImport('useAsyncData', () => async (_key: string, handler: () => Promise<unknown>) => {
@@ -54,7 +60,7 @@ mockNuxtImport('useAsyncData', () => async (_key: string, handler: () => Promise
 });
 
 describe('IndexPage', () => {
-  it('loads expenses and routes refresh/edit/delete actions through the container', async () => {
+  it('loads expenses and routes refresh/view/edit/delete actions through the container', async () => {
     const wrapper = await mountSuspended(IndexPage, {
       global: {
         stubs: {
@@ -63,14 +69,18 @@ describe('IndexPage', () => {
           },
           ExpenseList: {
             props: ['expenses', 'loading'],
-            emits: ['refresh', 'edit', 'delete'],
+            emits: ['refresh', 'view', 'edit', 'delete'],
             template: `
               <div>
                 <button @click="$emit('refresh')">Refresh</button>
+                <button @click="$emit('view', expenses[0])">View</button>
                 <button @click="$emit('edit', expenses[0])">Edit</button>
                 <button @click="$emit('delete', expenses[0])">Delete</button>
               </div>
             `
+          },
+          ModalExpenseDetail: {
+            template: '<div />'
           },
           ModalExpenseEdit: {
             template: '<div />'
@@ -87,9 +97,11 @@ describe('IndexPage', () => {
     await buttons[0]!.trigger('click');
     await buttons[1]!.trigger('click');
     await buttons[2]!.trigger('click');
+    await buttons[3]!.trigger('click');
 
     expect(loadExpensesMock).toHaveBeenCalledTimes(1);
     expect(refreshMock).toHaveBeenCalledTimes(1);
+    expect(openViewModalMock).toHaveBeenCalledTimes(1);
     expect(openEditModalMock).toHaveBeenCalledTimes(1);
     expect(openDeleteModalMock).toHaveBeenCalledTimes(1);
   });

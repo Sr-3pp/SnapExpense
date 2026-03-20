@@ -6,7 +6,7 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits<{
-  'update:open': [value: boolean];
+  closed: [];
   deleted: [];
 }>();
 
@@ -18,6 +18,7 @@ const deleteError = ref('');
 
 const closeModal = () => {
   close();
+  emit('closed');
 };
 
 const confirmDelete = async () => {
@@ -32,6 +33,7 @@ const confirmDelete = async () => {
     await removeExpense(props.expense.id);
     emit('deleted');
     close();
+    emit('closed');
   } catch (error) {
     deleteError.value = error instanceof Error ? error.message : 'Failed to delete expense.';
   } finally {
@@ -45,7 +47,7 @@ const confirmDelete = async () => {
     v-model:open="isOpen"
     title="Delete Expense"
     description="This will permanently remove the expense from MongoDB."
-    @update:open="emit('update:open', $event)"
+    @update:open="!$event && emit('closed')"
   >
     <template #body>
       <div class="space-y-4">

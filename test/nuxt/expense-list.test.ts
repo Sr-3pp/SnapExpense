@@ -21,7 +21,7 @@ describe('ExpenseList', () => {
     updatedAt: '2026-03-19T10:00:00.000Z'
   };
 
-  it('emits refresh, edit, and delete actions', async () => {
+  it('emits refresh, view, edit, and delete actions', async () => {
     const wrapper = await mountSuspended(ExpenseList, {
       props: {
         expenses: [expense],
@@ -33,9 +33,19 @@ describe('ExpenseList', () => {
             template: '<div><slot name="header" /><slot /></div>'
           },
           UButton: {
-            props: ['label', 'loading'],
+            props: ['label', 'loading', 'icon'],
             emits: ['click'],
-            template: '<button :data-loading="loading" @click="$emit(\'click\')">{{ label }}</button>'
+            template: '<button :data-loading="loading" @click="$emit(\'click\')">{{ label || icon }}</button>'
+          },
+          UDropdownMenu: {
+            props: ['items'],
+            template: `
+              <div>
+                <slot />
+                <button @click="items[0][0].onSelect()">Edit</button>
+                <button @click="items[0][1].onSelect()">Delete</button>
+              </div>
+            `
           },
           UTable: {
             props: ['data'],
@@ -56,8 +66,11 @@ describe('ExpenseList', () => {
     await buttons[0]!.trigger('click');
     await buttons[1]!.trigger('click');
     await buttons[2]!.trigger('click');
+    await buttons[3]!.trigger('click');
+    await buttons[4]!.trigger('click');
 
     expect(wrapper.emitted('refresh')).toHaveLength(1);
+    expect(wrapper.emitted('view')).toEqual([[expense]]);
     expect(wrapper.emitted('edit')).toEqual([[expense]]);
     expect(wrapper.emitted('delete')).toEqual([[expense]]);
   });
