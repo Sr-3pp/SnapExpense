@@ -10,6 +10,7 @@ export default defineConfig({
           name: 'unit',
           include: ['test/unit/*.{test,spec}.ts'],
           environment: 'node',
+          setupFiles: ['test/setup/coverage.ts'],
         },
       },
       await defineVitestProject({
@@ -17,6 +18,7 @@ export default defineConfig({
           name: 'nuxt',
           include: ['test/nuxt/*.{test,spec}.ts'],
           environment: 'nuxt',
+          setupFiles: ['test/setup/coverage.ts'],
           environmentOptions: {
             nuxt: {
               rootDir: fileURLToPath(new URL('.', import.meta.url)),
