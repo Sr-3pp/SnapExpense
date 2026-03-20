@@ -1,13 +1,25 @@
 <script setup lang="ts">
 import type { TableColumn } from '@nuxt/ui';
+import type { PropType } from 'vue';
+
 import type { ExpenseRecord } from '~~/shared/types/expense';
 
+defineProps({
+  expenses: {
+    type: Array as PropType<ExpenseRecord[]>,
+    required: true
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  }
+});
+
 const emit = defineEmits<{
+  refresh: [];
   edit: [expense: ExpenseRecord];
   delete: [expense: ExpenseRecord];
 }>();
-
-const { expenses, isLoadingExpenses, loadExpenses } = useExpenses();
 
 const columns: TableColumn<ExpenseRecord>[] = [
   {
@@ -47,8 +59,6 @@ const openEdit = (expense: ExpenseRecord) => {
 const openDelete = (expense: ExpenseRecord) => {
   emit('delete', expense);
 };
-
-await loadExpenses();
 </script>
 
 <template>
@@ -68,8 +78,8 @@ await loadExpenses();
           color="neutral"
           variant="soft"
           icon="i-lucide-refresh-cw"
-          :loading="isLoadingExpenses"
-          @click="loadExpenses"
+          :loading="loading"
+          @click="emit('refresh')"
         />
       </div>
     </template>
@@ -77,7 +87,7 @@ await loadExpenses();
     <UTable
       :data="expenses"
       :columns="columns"
-      :loading="isLoadingExpenses"
+      :loading="loading"
       empty="No expenses registered yet."
     >
       <template #total-cell="{ row }">
