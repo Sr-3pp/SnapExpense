@@ -5,7 +5,8 @@ const ticketPicture = ref<File | null>(null);
 const extractedTicket = ref<TicketExtraction | null>(null);
 const errorMessage = ref('');
 const isLoading = ref(false);
-const { extractData, saveExpense } = useTicket();
+const { extractData } = useTicketExtraction();
+const { saveExpense } = useExpenses();
 
 const submitTicket = async () => {
   if (!ticketPicture.value) {

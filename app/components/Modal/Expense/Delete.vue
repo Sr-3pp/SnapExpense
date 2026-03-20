@@ -10,15 +10,14 @@ const emit = defineEmits<{
   deleted: [];
 }>();
 
-const { isOpen, toggle } = useModal('deleteExpense');
-
-const { removeExpense } = useTicket();
+const { isOpen, close } = useModal('deleteExpense');
+const { removeExpense } = useExpenses();
 
 const isDeletingExpense = ref(false);
 const deleteError = ref('');
 
 const closeModal = () => {
-  toggle();
+  close();
 };
 
 const confirmDelete = async () => {
@@ -32,7 +31,7 @@ const confirmDelete = async () => {
   try {
     await removeExpense(props.expense.id);
     emit('deleted');
-    toggle();
+    close();
   } catch (error) {
     deleteError.value = error instanceof Error ? error.message : 'Failed to delete expense.';
   } finally {

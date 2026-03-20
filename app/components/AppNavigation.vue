@@ -1,8 +1,8 @@
 <script setup lang="ts">
-const { toggle } = useModal('uploadTicket');
+const { open } = useModal('uploadTicket');
 
 const openUploadModal = () => {
-  toggle();
+  open();
 };
 </script>
 

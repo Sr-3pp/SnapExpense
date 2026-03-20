@@ -7,7 +7,7 @@ const emit = defineEmits<{
   delete: [expense: ExpenseRecord];
 }>();
 
-const { expenses, isLoadingExpenses, loadExpenses } = useTicket();
+const { expenses, isLoadingExpenses, loadExpenses } = useExpenses();
 
 const columns: TableColumn<ExpenseRecord>[] = [
   {

@@ -2,8 +2,8 @@
 import type { ExpenseRecord } from '~~/types/expense';
 
 const selectedExpense = ref<ExpenseRecord | null>(null);
-const { toggle: toggleEditModal } = useModal('editExpense');
-const { toggle: toggleDeleteModal } = useModal('deleteExpense');
+const { open: openEditModal } = useModal('editExpense');
+const { open: openDeleteModal } = useModal('deleteExpense');
 
 const handleUpdate = () => {
   selectedExpense.value = null;
@@ -11,12 +11,12 @@ const handleUpdate = () => {
 
 const handleEdit = (expense: ExpenseRecord) => {
   selectedExpense.value = expense;
-  toggleEditModal();
+  openEditModal();
 };
 
 const handleDelete = (expense: ExpenseRecord) => {
   selectedExpense.value = expense;
-  toggleDeleteModal();
+  openDeleteModal();
 };
 </script>
 

@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const { isOpen, toggle } = useModal('uploadTicket');
+const { isOpen, close } = useModal('uploadTicket');
 </script>
 
 <template>
@@ -10,7 +10,7 @@ const { isOpen, toggle } = useModal('uploadTicket');
     name="uploadTicket"
   >
     <template #body>
-      <TicketWizard @saved="toggle()" />
+      <TicketWizard @saved="close()" />
     </template>
   </UModal>
 </template>

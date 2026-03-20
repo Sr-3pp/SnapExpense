@@ -1,8 +1,13 @@
 <script setup lang="ts">
 import type { PaymentMethodOption } from '~~/shared/constants/payment-methods';
-import type { TicketExtraction, TicketLineItem } from '~~/types/ticket';
+import type { TicketExtraction } from '~~/types/ticket';
 import { paymentMethodOptions } from '~~/shared/constants/payment-methods';
 import { ticketExtractionSchema } from '~~/shared/schemas/ticket';
+import {
+  cloneExpense,
+  createEmptyExpense,
+  createEmptyLineItem
+} from '~~/shared/utils/expense';
 
 const props = withDefaults(defineProps<{
   expense?: TicketExtraction | null;
@@ -18,52 +23,6 @@ const emit = defineEmits<{
   submit: [expense: TicketExtraction];
   cancel: [];
 }>();
-
-const createEmptyLineItem = (): TicketLineItem => ({
-  name: '',
-  quantity: null,
-  unitPrice: null,
-  totalPrice: null
-});
-
-const createEmptyExpense = (): TicketExtraction => ({
-  merchant: null,
-  purchaseDate: null,
-  currency: null,
-  total: null,
-  subtotal: null,
-  tax: null,
-  tip: null,
-  invoiceNumber: null,
-  paymentMethod: null,
-  items: [],
-  notes: []
-});
-
-const cloneExpense = (expense: TicketExtraction | null | undefined): TicketExtraction => {
-  if (!expense) {
-    return createEmptyExpense();
-  }
-
-  return {
-    merchant: expense.merchant,
-    purchaseDate: expense.purchaseDate,
-    currency: expense.currency,
-    total: expense.total,
-    subtotal: expense.subtotal,
-    tax: expense.tax,
-    tip: expense.tip,
-    invoiceNumber: expense.invoiceNumber,
-    paymentMethod: expense.paymentMethod,
-    items: expense.items.map((item) => ({
-      name: item.name,
-      quantity: item.quantity,
-      unitPrice: item.unitPrice,
-      totalPrice: item.totalPrice
-    })),
-    notes: [...expense.notes]
-  };
-};
 
 const state = reactive<TicketExtraction>(createEmptyExpense());
 

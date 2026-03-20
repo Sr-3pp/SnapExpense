@@ -10,8 +10,8 @@ const emit = defineEmits<{
   saved: [];
 }>();
 
-const { isOpen, toggle } = useModal('editExpense');
-const { patchExpense } = useTicket();
+const { isOpen, close } = useModal('editExpense');
+const { patchExpense } = useExpenses();
 
 const isSavingExpense = ref(false);
 const editError = ref('');
@@ -25,7 +25,7 @@ watch(
 );
 
 const closeModal = () => {
-  toggle();
+  close();
 };
 
 const saveEditedExpense = async (payload: TicketExtraction) => {
