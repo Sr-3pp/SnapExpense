@@ -1,4 +1,4 @@
-import type { TicketExtraction, TicketLineItem } from '~~/types/ticket';
+import type { TicketExtraction, TicketLineItem } from '~~/shared/types/ticket';
 
 export const createEmptyLineItem = (): TicketLineItem => ({
   name: '',

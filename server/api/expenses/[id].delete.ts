@@ -1,15 +1,8 @@
 import { deleteExpense } from '~~/server/repositories/expenses';
+import { requireExpenseId } from '~~/server/utils/expense-request';
 
 export default defineEventHandler(async (event) => {
-  const id = getRouterParam(event, 'id');
-
-  if (!id) {
-    throw createError({
-      statusCode: 400,
-      statusMessage: 'Missing expense id.'
-    });
-  }
-
+  const id = requireExpenseId(event);
   const deleted = await deleteExpense(id);
 
   if (!deleted) {

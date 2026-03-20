@@ -1,9 +1,8 @@
 import { saveExpense } from '~~/server/repositories/expenses';
-import { ticketExtractionSchema } from '~~/server/utils/expense-schema';
+import { readValidatedExpense } from '~~/server/utils/expense-request';
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  const validatedExpense = ticketExtractionSchema.parse(body);
+  const validatedExpense = await readValidatedExpense(event);
 
   return saveExpense(validatedExpense);
 });

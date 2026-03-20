@@ -1,4 +1,4 @@
-import type { TicketExtraction } from '~~/types/ticket';
+import type { TicketExtraction } from '~~/shared/types/ticket';
 
 export const useTicketExtraction = () => {
   const extractData = async (ticket: File) => {

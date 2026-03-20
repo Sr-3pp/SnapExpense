@@ -1,5 +1,7 @@
 import { MongoClient } from 'mongodb';
 
+import type { ExpenseDocument } from '~~/server/types/expense';
+
 let mongoClientPromise: Promise<MongoClient> | null = null;
 
 export async function getMongoClient() {
@@ -26,5 +28,5 @@ export async function getExpensesCollection() {
 
   return client
     .db(config.mongodbDbName)
-    .collection('expenses');
+    .collection<ExpenseDocument>('expenses');
 }

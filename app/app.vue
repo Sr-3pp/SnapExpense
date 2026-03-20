@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ExpenseRecord } from '~~/types/expense';
+import type { ExpenseRecord } from '~~/shared/types/expense';
 
 const selectedExpense = ref<ExpenseRecord | null>(null);
 const { open: openEditModal } = useModal('editExpense');
